@@ -8,7 +8,7 @@ export const createBookingSchema = z.object({
   customerEmail: z.string().email("Enter a valid email"),
   customerPhone: z.string().min(7, "Enter a valid phone number"),
   notes: z.string().max(500).optional(),
-  paymentType: z.enum(["deposit", "full", "pay_in_shop"]),
+  paymentType: z.enum(["full", "pay_in_shop"]),
 });
 
 export type CreateBookingInput = z.infer<typeof createBookingSchema>;

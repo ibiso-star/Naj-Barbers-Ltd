@@ -12,7 +12,7 @@ import type { Barber, Service, TimeSlot } from "@/lib/types";
 const STEPS = ["Service", "Barber", "Time", "Details", "Confirm"];
 const DAYS_AHEAD = 10;
 
-type PaymentType = "deposit" | "full" | "pay_in_shop";
+type PaymentType = "full" | "pay_in_shop";
 
 export function BookingWizard({
   services,
@@ -73,14 +73,6 @@ export function BookingWizard({
     };
   }, [barberId, serviceId, dateISO, step]);
 
-  // A previously selected deposit payment is no longer valid once the chosen
-  // service has no deposit (e.g. switching services mid-flow); fall back to
-  // pay-in-shop rather than syncing this with an effect.
-  const effectivePaymentType: PaymentType =
-    service && service.depositGbp === 0 && paymentType === "deposit"
-      ? "pay_in_shop"
-      : paymentType;
-
   function goTo(n: number) {
     setError(null);
     setStep(n);
@@ -99,7 +91,7 @@ export function BookingWizard({
         customerEmail: email,
         customerPhone: phone,
         notes: notes || undefined,
-        paymentType: effectivePaymentType,
+        paymentType,
       });
 
       if (!result.ok) {
@@ -271,22 +263,15 @@ export function BookingWizard({
               <div>
                 <p className="mb-2 text-sm font-medium text-navy">Payment</p>
                 <div className="flex flex-col gap-2">
-                  {service && service.depositGbp > 0 && (
-                    <PaymentOption
-                      checked={effectivePaymentType === "deposit"}
-                      onChange={() => setPaymentType("deposit")}
-                      label={`Pay £${service.depositGbp.toFixed(0)} deposit now`}
-                    />
-                  )}
                   {service && service.priceGbp > 0 && (
                     <PaymentOption
-                      checked={effectivePaymentType === "full"}
+                      checked={paymentType === "full"}
                       onChange={() => setPaymentType("full")}
                       label={`Pay in full now (£${service.priceGbp.toFixed(0)})`}
                     />
                   )}
                   <PaymentOption
-                    checked={effectivePaymentType === "pay_in_shop"}
+                    checked={paymentType === "pay_in_shop"}
                     onChange={() => setPaymentType("pay_in_shop")}
                     label="Pay in shop"
                   />
@@ -314,18 +299,16 @@ export function BookingWizard({
               <SummaryRow
                 label="Payment"
                 value={
-                  effectivePaymentType === "pay_in_shop"
+                  paymentType === "pay_in_shop"
                     ? "Pay in shop"
-                    : effectivePaymentType === "deposit"
-                      ? `£${service.depositGbp.toFixed(0)} deposit today`
-                      : `£${service.priceGbp.toFixed(0)} in full today`
+                    : `£${service.priceGbp.toFixed(0)} in full today`
                 }
               />
             </dl>
 
             <p className="mt-4 text-xs text-navy/50">
               Free cancellation up to 4 hours before your appointment. Late
-              cancellations forfeit any deposit paid.
+              cancellations of a prepaid booking are non-refundable.
             </p>
 
             {error && (

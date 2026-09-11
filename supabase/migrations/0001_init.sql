@@ -40,7 +40,6 @@ create table services (
   description text not null default '',
   duration_minutes int not null check (duration_minutes > 0),
   price_gbp numeric(8, 2) not null check (price_gbp >= 0),
-  deposit_gbp numeric(8, 2) not null default 0 check (deposit_gbp >= 0),
   buffer_minutes int not null default 15 check (buffer_minutes >= 0),
   image_url text,
   active boolean not null default true,
@@ -215,7 +214,7 @@ create table bookings (
   status text not null default 'pending_payment' check (
     status in ('pending_payment', 'confirmed', 'completed', 'cancelled', 'no_show')
   ),
-  payment_type text not null check (payment_type in ('deposit', 'full', 'pay_in_shop')),
+  payment_type text not null check (payment_type in ('full', 'pay_in_shop')),
   stripe_payment_intent_id text,
   notes text,
   cancellation_reason text,

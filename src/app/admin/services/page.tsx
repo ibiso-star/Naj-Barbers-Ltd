@@ -9,7 +9,7 @@ export default async function AdminServicesPage() {
   const supabase = await createClient();
   const { data } = await supabase
     .from("services")
-    .select("id, name, category, duration_minutes, price_gbp, deposit_gbp, buffer_minutes, active")
+    .select("id, name, category, duration_minutes, price_gbp, buffer_minutes, active")
     .order("name");
 
   return (
@@ -26,7 +26,6 @@ export default async function AdminServicesPage() {
               <th className="px-4 py-3 font-medium">Name</th>
               <th className="px-4 py-3 font-medium">Duration</th>
               <th className="px-4 py-3 font-medium">Price</th>
-              <th className="px-4 py-3 font-medium">Deposit</th>
               <th className="px-4 py-3 font-medium">Buffer</th>
               <th className="px-4 py-3 font-medium">Status</th>
             </tr>
@@ -37,7 +36,6 @@ export default async function AdminServicesPage() {
                 <td className="px-4 py-3 font-medium text-navy">{s.name}</td>
                 <td className="px-4 py-3 text-navy/70">{s.duration_minutes} min</td>
                 <td className="px-4 py-3 text-navy/70">£{s.price_gbp}</td>
-                <td className="px-4 py-3 text-navy/70">£{s.deposit_gbp}</td>
                 <td className="px-4 py-3 text-navy/70">{s.buffer_minutes} min</td>
                 <td className="px-4 py-3">
                   <StatusToggle active={s.active} onToggle={toggleServiceActive.bind(null, s.id)} />

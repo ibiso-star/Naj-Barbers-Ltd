@@ -13,7 +13,7 @@ import type { Barber, Review, Service } from "@/lib/types";
 /**
  * Data-access layer: reads from Supabase when it's configured, otherwise falls
  * back to placeholder demo data so the app is fully browsable with zero setup.
- * See PRD.md §0 and §9.
+ * See PRD.md §0 and §7.
  */
 
 export async function getServices(): Promise<Service[]> {
@@ -22,9 +22,7 @@ export async function getServices(): Promise<Service[]> {
   const supabase = await createClient();
   const { data, error } = await supabase
     .from("services")
-    .select(
-      "id, name, category, description, duration_minutes, price_gbp, deposit_gbp, image_url"
-    )
+    .select("id, name, category, description, duration_minutes, price_gbp, image_url")
     .order("name");
 
   if (error || !data) return DEMO_SERVICES;
@@ -36,7 +34,6 @@ export async function getServices(): Promise<Service[]> {
     description: row.description,
     durationMinutes: row.duration_minutes,
     priceGbp: row.price_gbp,
-    depositGbp: row.deposit_gbp,
     imageUrl: row.image_url ?? undefined,
   }));
 }

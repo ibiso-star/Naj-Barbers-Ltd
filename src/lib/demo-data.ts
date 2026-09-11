@@ -2,7 +2,7 @@ import type { Barber, Review, Service } from "./types";
 
 /**
  * Placeholder content shown until real services/barbers/pricing are confirmed
- * (see PRD.md §9 Open Questions) and/or Supabase env vars are configured.
+ * (see PRD.md §7 Open Questions) and/or Supabase env vars are configured.
  */
 
 export const DEMO_SERVICES: Service[] = [
@@ -13,7 +13,6 @@ export const DEMO_SERVICES: Service[] = [
     description: "Precision cut, tailored to your style, finished with a hot towel.",
     durationMinutes: 30,
     priceGbp: 25,
-    depositGbp: 5,
   },
   {
     id: "skin-fade",
@@ -22,7 +21,6 @@ export const DEMO_SERVICES: Service[] = [
     description: "Sharp, blended skin fade with clean line-up.",
     durationMinutes: 45,
     priceGbp: 30,
-    depositGbp: 5,
   },
   {
     id: "beard-trim",
@@ -31,7 +29,6 @@ export const DEMO_SERVICES: Service[] = [
     description: "Shape and tidy with straight razor line-up.",
     durationMinutes: 15,
     priceGbp: 12,
-    depositGbp: 0,
   },
   {
     id: "hot-towel-shave",
@@ -40,7 +37,6 @@ export const DEMO_SERVICES: Service[] = [
     description: "Traditional wet shave with hot towel and finishing balm.",
     durationMinutes: 30,
     priceGbp: 22,
-    depositGbp: 5,
   },
   {
     id: "restyle",
@@ -49,7 +45,6 @@ export const DEMO_SERVICES: Service[] = [
     description: "Full consultation and restyle for a fresh new look.",
     durationMinutes: 60,
     priceGbp: 40,
-    depositGbp: 10,
   },
   {
     id: "kids-cut",
@@ -58,10 +53,11 @@ export const DEMO_SERVICES: Service[] = [
     description: "Relaxed, friendly cut for younger clients (under 12).",
     durationMinutes: 20,
     priceGbp: 15,
-    depositGbp: 0,
   },
 ];
 
+// 4 barber seats per PRD.md §7 — names/specialties/photos are placeholders
+// pending the real roster.
 export const DEMO_BARBERS: Barber[] = [
   {
     id: "barber-1",
@@ -95,6 +91,17 @@ export const DEMO_BARBERS: Barber[] = [
     reviewCount: 54,
     portfolio: [],
     serviceIds: ["kids-cut", "restyle", "haircut-classic", "skin-fade"],
+  },
+  {
+    id: "barber-4",
+    name: "Barber 4 (name TBD)",
+    bio: "Placeholder seat for the fourth barber — update once the real roster is confirmed.",
+    specialties: ["Classic Cuts"],
+    yearsExperience: 3,
+    rating: 4.6,
+    reviewCount: 21,
+    portfolio: [],
+    serviceIds: ["haircut-classic", "skin-fade", "beard-trim", "hot-towel-shave", "restyle", "kids-cut"],
   },
 ];
 

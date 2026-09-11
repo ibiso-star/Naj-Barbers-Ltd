@@ -24,7 +24,7 @@ export function CancelButton({ bookingId }: { bookingId: string }) {
           } else {
             setMessage(
               result.late
-                ? "Cancelled — deposit forfeited (late cancellation)."
+                ? "Cancelled — late cancellation, any prepayment is non-refundable."
                 : "Cancelled."
             );
           }

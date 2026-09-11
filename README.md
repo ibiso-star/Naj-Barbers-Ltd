@@ -37,8 +37,8 @@ so you can browse services/barbers and click through the booking flow immediatel
 
 Set `STRIPE_SECRET_KEY` and `STRIPE_WEBHOOK_SECRET` in `.env.local`, and point a
 Stripe webhook at `/api/stripe/webhook` listening for `checkout.session.completed`.
-Without these, deposit/full-payment bookings still complete — they just skip
-straight to "confirmed" (pay-in-shop equivalent) instead of a real charge.
+Without these, full-payment bookings still complete — they just skip straight
+to "confirmed" (pay-in-shop equivalent) instead of a real charge.
 
 ## Project structure
 

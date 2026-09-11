@@ -13,7 +13,6 @@ export interface Service {
   description: string;
   durationMinutes: number;
   priceGbp: number;
-  depositGbp: number;
   imageUrl?: string;
 }
 
@@ -67,7 +66,7 @@ export interface Booking {
   startTime: string; // ISO
   endTime: string; // ISO
   status: BookingStatus;
-  paymentType: "deposit" | "full" | "pay_in_shop";
+  paymentType: "full" | "pay_in_shop";
   createdAt: string;
 }
 

@@ -47,7 +47,7 @@ export async function submitBooking(
 
   if (!isSupabaseConfigured()) {
     // Demo mode: nothing to persist to, but let the flow complete so the UI
-    // can be exercised end-to-end. See PRD.md §0/§9.
+    // can be exercised end-to-end. See PRD.md §0/§7.
     return { ok: true, bookingId: `demo-${randomUUID()}`, demo: true };
   }
 
@@ -78,11 +78,12 @@ export async function submitBooking(
     customerId = newCustomer.id;
   }
 
-  // No-show policy (PRD.md §4): 3+ no-shows forces prepay.
+  // No-show policy (PRD.md §4): 3+ no-shows forces prepay (full payment —
+  // there's no deposit option, see PRD.md §0).
   const mustPrepay = existingCustomer?.prepay_only || (existingCustomer?.no_show_count ?? 0) >= NO_SHOW_LIMIT;
   let paymentType = input.paymentType;
   if (mustPrepay && paymentType === "pay_in_shop") {
-    paymentType = service.depositGbp > 0 ? "deposit" : "full";
+    paymentType = "full";
   }
 
   const needsOnlinePayment = paymentType !== "pay_in_shop" && service.priceGbp > 0;
@@ -115,12 +116,11 @@ export async function submitBooking(
 
   if (!isStripeConfigured()) {
     // Stripe isn't wired up yet — fall back to confirmed + pay-in-shop rather
-    // than blocking the booking (see PRD.md §9 open questions).
+    // than blocking the booking (see PRD.md §7 open questions).
     await admin.from("bookings").update({ status: "confirmed" }).eq("id", booking.id);
     return { ok: true, bookingId: booking.id };
   }
 
-  const amountGbp = paymentType === "deposit" ? service.depositGbp : service.priceGbp;
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
   const session = await getStripe().checkout.sessions.create({
@@ -130,10 +130,8 @@ export async function submitBooking(
       {
         price_data: {
           currency: "gbp",
-          unit_amount: Math.round(amountGbp * 100),
-          product_data: {
-            name: `${service.name}${paymentType === "deposit" ? " (deposit)" : ""}`,
-          },
+          unit_amount: Math.round(service.priceGbp * 100),
+          product_data: { name: service.name },
         },
         quantity: 1,
       },

@@ -44,7 +44,7 @@ export async function cancelBooking(
       status: "cancelled",
       cancelled_at: new Date().toISOString(),
       cancellation_reason: late
-        ? "Cancelled by customer (late — deposit forfeited)"
+        ? "Cancelled by customer (late — prepayment non-refundable)"
         : "Cancelled by customer",
     })
     .eq("id", bookingId);

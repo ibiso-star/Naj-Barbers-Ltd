@@ -14,7 +14,7 @@ Last updated: 2026-09-11
 | Framework | **Next.js (App Router) + TypeScript + Tailwind CSS** | Server components for fast mobile loads, file-based routing, one deploy target. |
 | Backend / DB | **Supabase** (Postgres + Auth + Storage + Realtime) | Managed Postgres fits relational booking/scheduling logic (no double-booking, buffers) better than a NoSQL store; built-in phone-OTP auth removes a whole integration. |
 | Hosting | **Vercel** | Native Next.js support, zero-config CI/CD from git pushes. |
-| Payments | **Stripe** (deposit or full payment, Apple Pay/Google Pay via Stripe, pay-in-shop fallback) | Best-documented, native wallet support. |
+| Payments | **Stripe** (full payment online, Apple Pay/Google Pay via Stripe, pay-in-shop fallback) — **no deposits** | Best-documented, native wallet support. Decided 2026-09-11: no deposit option — customers pay in full online or in shop. |
 | Notifications | Email via Supabase/Resend for MVP; SMS/push deferred to Phase 2 | Keeps MVP integration surface small. |
 | Deliverables | **The running app + this PRD + schema/API docs living in the repo** — no separate Figma files or Word docs | Code in this repo is the single source of truth; the UI itself is the design artifact. |
 
@@ -32,7 +32,7 @@ Last updated: 2026-09-11
 - **Tone:** confident, welcoming, community-first — not corporate
 
 > Real logo, shop photography, and exact brand color approval are outstanding —
-> placeholders are used until final assets are supplied (see §9 Open Questions).
+> placeholders are used until final assets are supplied (see §7 Open Questions).
 
 ## 2. Core Features
 
@@ -45,7 +45,7 @@ Last updated: 2026-09-11
   calendar
 - Waitlist for fully booked barbers (Phase 2 for push notification trigger)
 - Loyalty digital stamp card (Phase 2)
-- Payments: Stripe deposit/full payment, pay-in-shop option
+- Payments: Stripe full payment online, or pay-in-shop (no deposits)
 - Notifications: confirmation, 24h/1h reminders, promos
 - Post-appointment reviews
 
@@ -71,7 +71,7 @@ Last updated: 2026-09-11
   when Supabase isn't configured
 - Barber availability model + buffer/no-double-booking logic
 - Basic admin dashboard (bookings, services, staff — read/manage)
-- Stripe payment (deposit or full) with pay-in-shop fallback
+- Stripe payment (full payment online) with pay-in-shop fallback — no deposits
 - Email notifications (confirmation + reminder groundwork)
 
 **Phase 2:**
@@ -85,7 +85,8 @@ Last updated: 2026-09-11
 ## 4. Business Rules & Logic
 
 - **Opening hours:** Tue–Sat 9am–7pm, Sun 10am–4pm, Mon closed
-- **Cancellation:** free up to 4 hours before; late cancellation forfeits deposit
+- **Cancellation:** free up to 4 hours before; late cancellation of a prepaid
+  (full-payment) booking is non-refundable — there are no deposits (§0)
 - **No-show policy:** 3 no-shows → account flagged prepay-only
 - **Buffer time:** 15 minutes after each appointment
 - **Slot duration:** per-service (e.g. skin fade 45 min, beard trim 15 min)
@@ -104,7 +105,7 @@ Next.js (App Router, TS, Tailwind) ── Vercel
         │
         ├── Supabase Postgres (RLS-secured) — services, barbers, bookings, customers
         ├── Supabase Auth — phone/email OTP for customers, email+password for staff/admin
-        ├── Stripe — checkout session for deposits/full payment, webhook confirms booking
+        ├── Stripe — checkout session for full payment, webhook confirms booking
         └── Email (Resend/Supabase) — confirmations + reminders
 ```
 
@@ -115,9 +116,15 @@ keyed off `auth.uid()` and a `profiles.role` column.
 
 - [ ] Final logo, brand photography, exact Pantone/hex sign-off
 - [ ] Real shop address, phone number, Google Maps location
-- [ ] Number of barbers at launch + their real names/specialties/photos
-- [ ] Actual service list + live pricing (placeholder pricing used until confirmed)
-- [ ] Deposit amount/percentage policy
+- [x] **Number of barbers at launch: 4** (decided 2026-09-11). Names, specialties,
+      years of experience, and photos are still TBD — `demo-data.ts`/`seed.sql`
+      carry 3 named placeholder barbers (Naj, Marcus, Leo) plus a 4th generic
+      "Barber 4 (name TBD)" seat to match the confirmed headcount.
+- [ ] Actual service list + live pricing — not yet developed by the business;
+      placeholder services/pricing stay in place until a real list exists
+- [x] **Deposit policy: no deposits** (decided 2026-09-11). Customers pay in full
+      online or pay in shop — the deposit payment option has been removed from
+      the schema, booking flow, and Stripe checkout entirely.
 - [ ] Who owns the Supabase + Vercel + Stripe accounts this deploys to
 - [ ] Domain name for production
 
