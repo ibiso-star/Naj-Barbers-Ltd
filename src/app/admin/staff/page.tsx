@@ -1,0 +1,54 @@
+import type { Metadata } from "next";
+import { createClient } from "@/lib/supabase/server";
+import { StatusToggle } from "@/components/admin/StatusToggle";
+import { toggleBarberActive } from "./actions";
+
+export const metadata: Metadata = { title: "Staff | Admin | Naj Barbers Ltd" };
+
+export default async function AdminStaffPage() {
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("barbers")
+    .select("id, name, years_experience, rating, review_count, commission_rate, active")
+    .order("name");
+
+  return (
+    <div>
+      <h1 className="font-display text-2xl font-bold text-navy">Staff</h1>
+      <p className="mt-2 text-sm text-navy/60">
+        Manage which barbers are bookable and their commission rate.
+      </p>
+
+      <div className="mt-6 overflow-x-auto rounded-xl border border-navy/10 bg-white">
+        <table className="w-full min-w-[560px] text-left text-sm">
+          <thead className="border-b border-navy/10 text-navy/50">
+            <tr>
+              <th className="px-4 py-3 font-medium">Name</th>
+              <th className="px-4 py-3 font-medium">Experience</th>
+              <th className="px-4 py-3 font-medium">Rating</th>
+              <th className="px-4 py-3 font-medium">Commission</th>
+              <th className="px-4 py-3 font-medium">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {(data ?? []).map((b) => (
+              <tr key={b.id} className="border-b border-navy/5 last:border-0">
+                <td className="px-4 py-3 font-medium text-navy">{b.name}</td>
+                <td className="px-4 py-3 text-navy/70">{b.years_experience} yrs</td>
+                <td className="px-4 py-3 text-navy/70">
+                  ★ {b.rating} ({b.review_count})
+                </td>
+                <td className="px-4 py-3 text-navy/70">
+                  {Math.round(b.commission_rate * 100)}%
+                </td>
+                <td className="px-4 py-3">
+                  <StatusToggle active={b.active} onToggle={toggleBarberActive.bind(null, b.id)} />
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
