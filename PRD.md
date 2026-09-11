@@ -37,8 +37,9 @@ Last updated: 2026-09-11
 ## 2. Core Features
 
 ### Customers
-- Service browsing (haircuts, beard trims, hot towel shaves, skin fades, restyles,
-  kids' cuts) with description, duration, price
+- Service browsing (haircuts, beard trims, cut+beard combos, hot towel shaves,
+  skin fades, restyles, kids' cuts) with description, duration, price — see §7
+  for the confirmed launch menu
 - Real-time booking: service → barber → time slot → confirm
 - Barber profiles: photo, specialties, rating, portfolio, years of experience
 - Appointment management: upcoming/past, reschedule, cancel (policy-aware), add to
@@ -120,11 +121,18 @@ keyed off `auth.uid()` and a `profiles.role` column.
       years of experience, and photos are still TBD — `demo-data.ts`/`seed.sql`
       carry 3 named placeholder barbers (Naj, Marcus, Leo) plus a 4th generic
       "Barber 4 (name TBD)" seat to match the confirmed headcount.
-- [ ] Actual service list + live pricing — not yet developed by the business;
-      placeholder services/pricing stay in place until a real list exists
+- [x] **Service list + pricing** (decided 2026-09-11 — drafted by Claude since
+      the business hadn't developed one yet, approved as-is): Classic Haircut
+      £28 (30min), Skin Fade £32 (45min), Beard Trim £14 (15min), Cut + Beard
+      Combo £38 (45min), Hot Towel Shave £25 (30min), Restyle Consultation £45
+      (60min), Kids' Cut £16 (20min). Live in `demo-data.ts`/`seed.sql`. Still
+      worth a gut-check against a real competitor/cost analysis before launch.
 - [x] **Deposit policy: no deposits** (decided 2026-09-11). Customers pay in full
       online or pay in shop — the deposit payment option has been removed from
       the schema, booking flow, and Stripe checkout entirely.
+- [x] **Barber-service mapping: every barber offers every service** (decided
+      2026-09-11) — simplest for launch; can restrict per-barber later once
+      real specialties are known.
 - [ ] Who owns the Supabase + Vercel + Stripe accounts this deploys to
 - [ ] Domain name for production
 

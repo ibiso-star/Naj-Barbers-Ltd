@@ -35,7 +35,7 @@ create table services (
   id uuid primary key default gen_random_uuid(),
   name text not null,
   category text not null check (
-    category in ('haircut', 'beard', 'shave', 'fade', 'restyle', 'kids')
+    category in ('haircut', 'beard', 'shave', 'fade', 'restyle', 'kids', 'combo')
   ),
   description text not null default '',
   duration_minutes int not null check (duration_minutes > 0),

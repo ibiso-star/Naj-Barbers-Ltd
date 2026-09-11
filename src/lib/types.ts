@@ -4,7 +4,8 @@ export type ServiceCategory =
   | "shave"
   | "fade"
   | "restyle"
-  | "kids";
+  | "kids"
+  | "combo";
 
 export interface Service {
   id: string;

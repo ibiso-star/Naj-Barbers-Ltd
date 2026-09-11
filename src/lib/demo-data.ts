@@ -1,8 +1,9 @@
 import type { Barber, Review, Service } from "./types";
 
 /**
- * Placeholder content shown until real services/barbers/pricing are confirmed
- * (see PRD.md §7 Open Questions) and/or Supabase env vars are configured.
+ * Real launch content per PRD.md §7 (services/pricing/barber count decided
+ * 2026-09-11). Barber names/photos beyond the confirmed headcount of 4 are
+ * still placeholders pending the real roster.
  */
 
 export const DEMO_SERVICES: Service[] = [
@@ -12,7 +13,7 @@ export const DEMO_SERVICES: Service[] = [
     category: "haircut",
     description: "Precision cut, tailored to your style, finished with a hot towel.",
     durationMinutes: 30,
-    priceGbp: 25,
+    priceGbp: 28,
   },
   {
     id: "skin-fade",
@@ -20,7 +21,7 @@ export const DEMO_SERVICES: Service[] = [
     category: "fade",
     description: "Sharp, blended skin fade with clean line-up.",
     durationMinutes: 45,
-    priceGbp: 30,
+    priceGbp: 32,
   },
   {
     id: "beard-trim",
@@ -28,7 +29,15 @@ export const DEMO_SERVICES: Service[] = [
     category: "beard",
     description: "Shape and tidy with straight razor line-up.",
     durationMinutes: 15,
-    priceGbp: 12,
+    priceGbp: 14,
+  },
+  {
+    id: "cut-beard-combo",
+    name: "Cut + Beard Combo",
+    category: "combo",
+    description: "A full haircut paired with a straight-razor beard trim.",
+    durationMinutes: 45,
+    priceGbp: 38,
   },
   {
     id: "hot-towel-shave",
@@ -36,7 +45,7 @@ export const DEMO_SERVICES: Service[] = [
     category: "shave",
     description: "Traditional wet shave with hot towel and finishing balm.",
     durationMinutes: 30,
-    priceGbp: 22,
+    priceGbp: 25,
   },
   {
     id: "restyle",
@@ -44,7 +53,7 @@ export const DEMO_SERVICES: Service[] = [
     category: "restyle",
     description: "Full consultation and restyle for a fresh new look.",
     durationMinutes: 60,
-    priceGbp: 40,
+    priceGbp: 45,
   },
   {
     id: "kids-cut",
@@ -52,12 +61,14 @@ export const DEMO_SERVICES: Service[] = [
     category: "kids",
     description: "Relaxed, friendly cut for younger clients (under 12).",
     durationMinutes: 20,
-    priceGbp: 15,
+    priceGbp: 16,
   },
 ];
 
-// 4 barber seats per PRD.md §7 — names/specialties/photos are placeholders
-// pending the real roster.
+const ALL_SERVICE_IDS = DEMO_SERVICES.map((s) => s.id);
+
+// 4 barber seats per PRD.md §7 — names/photos are placeholders pending the
+// real roster. Every barber offers every service (decided 2026-09-11).
 export const DEMO_BARBERS: Barber[] = [
   {
     id: "barber-1",
@@ -68,7 +79,7 @@ export const DEMO_BARBERS: Barber[] = [
     rating: 4.9,
     reviewCount: 128,
     portfolio: [],
-    serviceIds: ["haircut-classic", "skin-fade", "beard-trim", "restyle"],
+    serviceIds: ALL_SERVICE_IDS,
   },
   {
     id: "barber-2",
@@ -79,7 +90,7 @@ export const DEMO_BARBERS: Barber[] = [
     rating: 4.8,
     reviewCount: 96,
     portfolio: [],
-    serviceIds: ["beard-trim", "hot-towel-shave", "haircut-classic"],
+    serviceIds: ALL_SERVICE_IDS,
   },
   {
     id: "barber-3",
@@ -90,7 +101,7 @@ export const DEMO_BARBERS: Barber[] = [
     rating: 4.7,
     reviewCount: 54,
     portfolio: [],
-    serviceIds: ["kids-cut", "restyle", "haircut-classic", "skin-fade"],
+    serviceIds: ALL_SERVICE_IDS,
   },
   {
     id: "barber-4",
@@ -101,7 +112,7 @@ export const DEMO_BARBERS: Barber[] = [
     rating: 4.6,
     reviewCount: 21,
     portfolio: [],
-    serviceIds: ["haircut-classic", "skin-fade", "beard-trim", "hot-towel-shave", "restyle", "kids-cut"],
+    serviceIds: ALL_SERVICE_IDS,
   },
 ];
 
