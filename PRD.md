@@ -4,7 +4,7 @@ Status: **Living source of truth.** This file is the guardrail for the project f
 start to finish. Any change in scope, stack, or business rules gets proposed as an
 edit to this file first, then implemented — not the other way around.
 
-Last updated: 2026-09-11
+Last updated: 2026-09-15
 
 ## 0. Decisions locked in (do not re-litigate without discussion)
 
@@ -20,19 +20,37 @@ Last updated: 2026-09-11
 
 ## 1. Brand Identity
 
-- **Business name:** Naj Barbers Ltd
-- **Vibe:** Premium, urban, community-focused barbershop
+- **Business name:** Naj Barbers Ltd (Company No. 15508310)
+- **Address:** 13 Mansel Street, Swansea SA1 5SF
+- **Phone:** 07876 489900 · **Email:** info@najbarbers.com · **Instagram:** @najbarbers
+- **Established:** 2024. Serves Swansea and the wider South Wales region.
+- **Positioning statement** (approved, from the project description doc,
+  2026-09-15): "Naj Barbers Ltd is a modern, inclusive barbershop in
+  Swansea, providing expert barbering, Afro hair and grooming services for
+  Afro-centric and Caucasian customers across Swansea and the wider South
+  Wales region. Customers choose Naj Barbers because of our specialist
+  expertise in diverse hair types, consistently high-quality cuts,
+  personalised service and attention to detail, delivered in a
+  professional, welcoming and contemporary environment where every
+  customer feels valued and confident."
+- **Vibe:** Premium, urban, community-focused barbershop — specialist in
+  both Afro hair/grooming and classic/European barbering
 - **Color palette:**
   - Deep navy `#0B1220` (primary background / dark sections, near-black)
   - Gold/amber accent `#C9A227` (CTAs, highlights, active states)
   - Clean white `#FFFFFF` / off-white `#FAF9F6` backgrounds
 - **Typography:**
-  - Headers: bold, modern sans-serif — Poppins
-  - Body: clean, readable — Inter
-- **Tone:** confident, welcoming, community-first — not corporate
+  - Headers: Fraunces (variable, editorial serif — distinct from the
+    generic Inter/Poppins SaaS look; softer opsz axis at large display sizes)
+  - Body: Manrope
+- **Tone:** confident, welcoming, community-first, inclusive — not corporate
 
-> Real logo, shop photography, and exact brand color approval are outstanding —
-> placeholders are used until final assets are supplied (see §7 Open Questions).
+> Real logo and shop photography are still outstanding — the homepage uses a
+> typographic monogram + texture treatment instead of stock/placeholder
+> photos until real photography is supplied (see §7 Open Questions). The
+> project description's brand-personality checklist (§7.1) was left
+> unmarked in the source doc, so no specific selection from that list is
+> treated as decided beyond what's stated above.
 
 ## 2. Core Features
 
@@ -116,7 +134,13 @@ keyed off `auth.uid()` and a `profiles.role` column.
 ## 7. Open Questions (fill in together — update this section as we decide)
 
 - [ ] Final logo, brand photography, exact Pantone/hex sign-off
-- [ ] Real shop address, phone number, Google Maps location
+- [x] **Real shop address, phone, email, Instagram** (confirmed 2026-09-15
+      from the project description doc): 13 Mansel Street, Swansea SA1 5SF ·
+      07876 489900 · info@najbarbers.com · @najbarbers. Live in
+      `src/lib/constants.ts` (`SHOP_SETTINGS`) and used across the header,
+      footer, mobile action bar, and homepage. Google Maps location pin
+      itself (verifying the address resolves correctly) still needs a manual
+      check once the business confirms the listing.
 - [x] **Number of barbers at launch: 4** (decided 2026-09-11). Names, specialties,
       years of experience, and photos are still TBD — `demo-data.ts`/`seed.sql`
       carry 3 named placeholder barbers (Naj, Marcus, Leo) plus a 4th generic
@@ -135,6 +159,14 @@ keyed off `auth.uid()` and a `profiles.role` column.
       real specialties are known.
 - [ ] Who owns the Supabase + Vercel + Stripe accounts this deploys to
 - [ ] Domain name for production
+- [x] **Fabricated barber ratings/reviews removed** (2026-09-15): the
+      placeholder barbers previously shipped with invented star ratings,
+      review counts, and named customer quotes (e.g. "James O.", 4.9★/128
+      reviews) displayed as if real. Since the shop has no real reviews yet
+      (est. 2024, pre-launch), `rating`/`reviewCount` now default to 0 in
+      `demo-data.ts`/`seed.sql`, `DEMO_REVIEWS` is empty, and the UI falls
+      back to the existing "No reviews yet" empty state instead of showing
+      fabricated numbers.
 
 ## 8. Deliverables (code-first interpretation of the original PRD ask)
 

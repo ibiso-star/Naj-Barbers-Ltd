@@ -12,12 +12,13 @@ insert into services (id, name, category, description, duration_minutes, price_g
   (gen_random_uuid(), 'Kids'' Cut', 'kids', 'Relaxed, friendly cut for younger clients (under 12).', 20, 16);
 
 -- 4 barber seats per PRD.md §7 — names/specialties/photos are placeholders
--- pending the real roster.
+-- pending the real roster. Rating/review_count start at 0 — no fabricated
+-- ratings; the shop has no real reviews yet (est. 2024, pre-launch).
 insert into barbers (id, name, bio, specialties, years_experience, rating, review_count) values
-  (gen_random_uuid(), 'Naj', 'Founder and master barber. Specialist in sharp fades and classic gentleman''s cuts.', array['Skin Fades', 'Classic Cuts', 'Line-ups'], 12, 4.9, 128),
-  (gen_random_uuid(), 'Marcus', 'Traditional wet-shave specialist with a passion for community barbering.', array['Hot Towel Shaves', 'Beard Sculpting'], 8, 4.8, 96),
-  (gen_random_uuid(), 'Leo', 'Great with kids and creative restyles — patient, precise, personable.', array['Kids'' Cuts', 'Restyles'], 5, 4.7, 54),
-  (gen_random_uuid(), 'Barber 4 (name TBD)', 'Placeholder seat for the fourth barber — update once the real roster is confirmed.', array['Classic Cuts'], 3, 4.6, 21);
+  (gen_random_uuid(), 'Naj', 'Founder and master barber. Specialist in sharp fades and classic gentleman''s cuts.', array['Skin Fades', 'Classic Cuts', 'Line-ups'], 12, 0, 0),
+  (gen_random_uuid(), 'Marcus', 'Traditional wet-shave specialist with a passion for community barbering.', array['Hot Towel Shaves', 'Beard Sculpting'], 8, 0, 0),
+  (gen_random_uuid(), 'Leo', 'Great with kids and creative restyles — patient, precise, personable.', array['Kids'' Cuts', 'Restyles'], 5, 0, 0),
+  (gen_random_uuid(), 'Barber 4 (name TBD)', 'Placeholder seat for the fourth barber — update once the real roster is confirmed.', array['Classic Cuts'], 3, 0, 0);
 
 -- Every barber offers every service (decided 2026-09-11, PRD.md §7).
 insert into barber_services (barber_id, service_id)
