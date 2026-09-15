@@ -133,11 +133,15 @@ keyed off `auth.uid()` and a `profiles.role` column.
 
 ## 7. Open Questions (fill in together — update this section as we decide)
 
-- [ ] **Final logo** — 3 mark concepts drafted 2026-09-15 (Fade Mark, Open
-      Blade, Heritage Seal; wordmark fixed as Fraunces) for the business
-      owner to pick from or refine; not yet wired into the codebase. Once a
-      direction is chosen, refine to production SVG and wire into header,
-      favicon, and footer.
+- [x] **Final logo mark: The Fade Mark** (decided 2026-09-15, from the 3
+      concepts drafted the same day — Fade Mark, Open Blade, Heritage Seal;
+      wordmark fixed as Fraunces). Live as `src/components/brand/FadeMark.tsx`
+      (`variant="duo"` navy-stem/gold-taper for light backgrounds,
+      `variant="gold"` solid gold for the navy background) — wired into the
+      header (next to the wordmark), the footer, and the generated favicon
+      (`src/app/icon.tsx`) and Apple touch icon (`src/app/apple-icon.tsx`,
+      via `next/og`'s `ImageResponse`), replacing the stock Next.js
+      `favicon.ico`.
 - [ ] **Real shop photography** — not shot yet. Interim: `src/app/page.tsx`
       hero uses a hand-drawn line illustration
       (`src/components/ToolsIllustration.tsx`, scissors/comb) instead of a
