@@ -2,6 +2,7 @@ import { ArrowRight, Clock, MapPin, Phone, Scissors } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { ServiceCard } from "@/components/ServiceCard";
 import { BarberCard } from "@/components/BarberCard";
+import { ToolsIllustration } from "@/components/ToolsIllustration";
 import { getServices, getBarbers } from "@/lib/data";
 import { SHOP_SETTINGS } from "@/lib/constants";
 
@@ -67,12 +68,13 @@ export default async function Home() {
           <div className="relative hidden aspect-[4/5] lg:block">
             <div className="clip-notch texture-grain absolute inset-0 border border-gold/20 bg-navy-light">
               <div className="stripe-fade absolute inset-x-0 top-0 h-3" />
-              <div className="flex h-full flex-col items-center justify-center gap-4 p-10 text-center">
-                <span className="font-display text-8xl font-bold text-gold">
-                  NB
-                </span>
+              <div className="flex h-full flex-col items-center justify-center gap-3 p-10 text-center">
+                <ToolsIllustration className="h-40 w-40 text-gold" />
                 <p className="max-w-[16rem] text-sm text-white/50">
                   {SHOP_SETTINGS.address}
+                </p>
+                <p className="text-xs italic text-white/30">
+                  Illustration — real shop photography coming soon
                 </p>
               </div>
               <div className="stripe-fade absolute inset-x-0 bottom-0 h-3" />
