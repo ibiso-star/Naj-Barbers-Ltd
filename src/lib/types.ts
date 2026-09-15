@@ -73,8 +73,14 @@ export interface Booking {
 
 export interface ShopSettings {
   name: string;
+  companyNumber: string;
+  establishedYear: number;
   address: string;
+  addressMapQuery: string;
   phone: string;
+  email: string;
+  instagramHandle: string;
+  instagramUrl: string;
   openingHours: Record<
     "mon" | "tue" | "wed" | "thu" | "fri" | "sat" | "sun",
     { open: string; close: string } | null

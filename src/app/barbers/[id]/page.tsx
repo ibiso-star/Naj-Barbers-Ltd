@@ -44,12 +44,18 @@ export default async function BarberProfilePage({ params }: { params: Params }) 
           <h1 className="font-display text-3xl font-bold text-navy">{barber.name}</h1>
           <p className="mt-1 text-navy/60">{barber.specialties.join(" · ")}</p>
           <div className="mt-2 flex items-center gap-2 text-sm text-navy/70">
-            <Star className="h-4 w-4 fill-gold text-gold" aria-hidden />
-            <span className="font-semibold text-navy">{barber.rating}</span>
-            <span>
-              ({barber.reviewCount} reviews) · {barber.yearsExperience} yrs
-              experience
-            </span>
+            {barber.reviewCount > 0 ? (
+              <>
+                <Star className="h-4 w-4 fill-gold text-gold" aria-hidden />
+                <span className="font-semibold text-navy">{barber.rating}</span>
+                <span>
+                  ({barber.reviewCount} reviews) · {barber.yearsExperience} yrs
+                  experience
+                </span>
+              </>
+            ) : (
+              <span>{barber.yearsExperience} yrs experience</span>
+            )}
           </div>
           <Button href={`/book?barber=${barber.id}`} className="mt-4">
             Book with {barber.name}

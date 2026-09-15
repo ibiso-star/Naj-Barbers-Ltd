@@ -2,8 +2,14 @@ import type { ShopSettings } from "./types";
 
 export const SHOP_SETTINGS: ShopSettings = {
   name: "Naj Barbers Ltd",
-  address: "Shop address to be confirmed",
-  phone: "Phone number to be confirmed",
+  companyNumber: "15508310",
+  establishedYear: 2024,
+  address: "13 Mansel Street, Swansea SA1 5SF",
+  addressMapQuery: "Naj Barbers Ltd, 13 Mansel Street, Swansea SA1 5SF",
+  phone: "07876 489900",
+  email: "info@najbarbers.com",
+  instagramHandle: "@najbarbers",
+  instagramUrl: "https://instagram.com/najbarbers",
   openingHours: {
     mon: null,
     tue: { open: "09:00", close: "19:00" },

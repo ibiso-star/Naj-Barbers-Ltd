@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { AtSign, Mail, MapPin, Phone } from "lucide-react";
 import { SHOP_SETTINGS } from "@/lib/constants";
 
 const WEEK_ORDER = ["tue", "wed", "thu", "fri", "sat", "sun", "mon"] as const;
@@ -14,6 +15,10 @@ const DAY_LABELS: Record<(typeof WEEK_ORDER)[number], string> = {
 };
 
 export function Footer() {
+  const directionsHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+    SHOP_SETTINGS.addressMapQuery
+  )}`;
+
   return (
     <footer className="mt-auto border-t border-white/10 bg-navy text-white">
       <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:px-6 md:grid-cols-3">
@@ -22,9 +27,19 @@ export function Footer() {
             NAJ <span className="text-gold">BARBERS</span>
           </p>
           <p className="mt-3 max-w-xs text-sm text-white/60">
-            Premium cuts, community roots. Book your next appointment in under a
-            minute.
+            Specialist barbering for Afro and European hair, established{" "}
+            {SHOP_SETTINGS.establishedYear} in Swansea. Book your next
+            appointment in under a minute.
           </p>
+          <a
+            href={SHOP_SETTINGS.instagramUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-white/70 hover:text-gold"
+          >
+            <AtSign className="h-4 w-4" aria-hidden />
+            {SHOP_SETTINGS.instagramHandle}
+          </a>
         </div>
 
         <div>
@@ -48,8 +63,29 @@ export function Footer() {
           <h4 className="font-display text-sm font-semibold uppercase tracking-wide text-gold">
             Visit
           </h4>
-          <p className="mt-3 text-sm text-white/70">{SHOP_SETTINGS.address}</p>
-          <p className="mt-1 text-sm text-white/70">{SHOP_SETTINGS.phone}</p>
+          <a
+            href={directionsHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-3 flex items-start gap-2 text-sm text-white/70 hover:text-gold"
+          >
+            <MapPin className="mt-0.5 h-4 w-4 shrink-0" aria-hidden />
+            {SHOP_SETTINGS.address}
+          </a>
+          <a
+            href={`tel:${SHOP_SETTINGS.phone.replace(/\s+/g, "")}`}
+            className="mt-2 flex items-center gap-2 text-sm text-white/70 hover:text-gold"
+          >
+            <Phone className="h-4 w-4 shrink-0" aria-hidden />
+            {SHOP_SETTINGS.phone}
+          </a>
+          <a
+            href={`mailto:${SHOP_SETTINGS.email}`}
+            className="mt-2 flex items-center gap-2 text-sm text-white/70 hover:text-gold"
+          >
+            <Mail className="h-4 w-4 shrink-0" aria-hidden />
+            {SHOP_SETTINGS.email}
+          </a>
           <Link
             href="/book"
             className="mt-4 inline-block text-sm font-semibold text-gold hover:text-gold-light"
@@ -59,7 +95,8 @@ export function Footer() {
         </div>
       </div>
       <div className="border-t border-white/10 px-4 py-4 text-center text-xs text-white/40 sm:px-6">
-        © {new Date().getFullYear()} Naj Barbers Ltd. All rights reserved.
+        © {new Date().getFullYear()} Naj Barbers Ltd · Company No.{" "}
+        {SHOP_SETTINGS.companyNumber}. All rights reserved.
       </div>
     </footer>
   );

@@ -11,7 +11,12 @@ export default async function ServicesPage() {
 
   return (
     <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
-      <h1 className="font-display text-3xl font-bold text-navy">Services</h1>
+      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gold">
+        The Menu
+      </p>
+      <h1 className="font-display mt-2 text-3xl font-bold text-navy">
+        Services
+      </h1>
       <p className="mt-2 max-w-xl text-navy/60">
         Every price includes a consultation and finish. Tap a service to start
         booking.

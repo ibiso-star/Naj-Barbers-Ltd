@@ -4,6 +4,11 @@ import type { Barber, Review, Service } from "./types";
  * Real launch content per PRD.md §7 (services/pricing/barber count decided
  * 2026-09-11). Barber names/photos beyond the confirmed headcount of 4 are
  * still placeholders pending the real roster.
+ *
+ * Ratings/review counts are intentionally left at 0 and DEMO_REVIEWS empty —
+ * the shop has no real reviews yet (est. 2024, pre-launch), and inventing
+ * star ratings or customer quotes would be fabricated testimonials shipped
+ * to real users. The UI treats reviewCount === 0 as "no reviews yet".
  */
 
 export const DEMO_SERVICES: Service[] = [
@@ -76,8 +81,8 @@ export const DEMO_BARBERS: Barber[] = [
     bio: "Founder and master barber. Specialist in sharp fades and classic gentleman's cuts.",
     specialties: ["Skin Fades", "Classic Cuts", "Line-ups"],
     yearsExperience: 12,
-    rating: 4.9,
-    reviewCount: 128,
+    rating: 0,
+    reviewCount: 0,
     portfolio: [],
     serviceIds: ALL_SERVICE_IDS,
   },
@@ -87,8 +92,8 @@ export const DEMO_BARBERS: Barber[] = [
     bio: "Traditional wet-shave specialist with a passion for community barbering.",
     specialties: ["Hot Towel Shaves", "Beard Sculpting"],
     yearsExperience: 8,
-    rating: 4.8,
-    reviewCount: 96,
+    rating: 0,
+    reviewCount: 0,
     portfolio: [],
     serviceIds: ALL_SERVICE_IDS,
   },
@@ -98,8 +103,8 @@ export const DEMO_BARBERS: Barber[] = [
     bio: "Great with kids and creative restyles — patient, precise, personable.",
     specialties: ["Kids' Cuts", "Restyles"],
     yearsExperience: 5,
-    rating: 4.7,
-    reviewCount: 54,
+    rating: 0,
+    reviewCount: 0,
     portfolio: [],
     serviceIds: ALL_SERVICE_IDS,
   },
@@ -109,31 +114,15 @@ export const DEMO_BARBERS: Barber[] = [
     bio: "Placeholder seat for the fourth barber — update once the real roster is confirmed.",
     specialties: ["Classic Cuts"],
     yearsExperience: 3,
-    rating: 4.6,
-    reviewCount: 21,
+    rating: 0,
+    reviewCount: 0,
     portfolio: [],
     serviceIds: ALL_SERVICE_IDS,
   },
 ];
 
-export const DEMO_REVIEWS: Review[] = [
-  {
-    id: "r1",
-    barberId: "barber-1",
-    customerName: "James O.",
-    rating: 5,
-    comment: "Best fade I've had in the city. Booking was seamless too.",
-    createdAt: "2026-08-20T10:00:00.000Z",
-  },
-  {
-    id: "r2",
-    barberId: "barber-2",
-    customerName: "Daniel R.",
-    rating: 5,
-    comment: "The hot towel shave is worth it alone. Great vibe in the shop.",
-    createdAt: "2026-08-15T14:00:00.000Z",
-  },
-];
+// Intentionally empty — no real customer reviews exist yet. See note above.
+export const DEMO_REVIEWS: Review[] = [];
 
 export function getServiceById(id: string): Service | undefined {
   return DEMO_SERVICES.find((s) => s.id === id);
