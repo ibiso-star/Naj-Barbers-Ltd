@@ -133,7 +133,19 @@ keyed off `auth.uid()` and a `profiles.role` column.
 
 ## 7. Open Questions (fill in together — update this section as we decide)
 
-- [ ] Final logo, brand photography, exact Pantone/hex sign-off
+- [ ] **Final logo** — 3 mark concepts drafted 2026-09-15 (Fade Mark, Open
+      Blade, Heritage Seal; wordmark fixed as Fraunces) for the business
+      owner to pick from or refine; not yet wired into the codebase. Once a
+      direction is chosen, refine to production SVG and wire into header,
+      favicon, and footer.
+- [ ] **Real shop photography** — not shot yet. Interim: `src/app/page.tsx`
+      hero uses a hand-drawn line illustration
+      (`src/components/ToolsIllustration.tsx`, scissors/comb) instead of a
+      stock or AI-generated photo, with an explicit "Illustration — real
+      shop photography coming soon" caption, so nothing on the live site is
+      presented as a real photo before one exists. Swap in real photos once
+      a shoot is scheduled.
+- [ ] Exact Pantone/hex sign-off
 - [x] **Real shop address, phone, email, Instagram** (confirmed 2026-09-15
       from the project description doc): 13 Mansel Street, Swansea SA1 5SF ·
       07876 489900 · info@najbarbers.com · @najbarbers. Live in
