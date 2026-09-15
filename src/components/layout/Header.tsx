@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { Menu, Phone, X } from "lucide-react";
 import { Button } from "@/components/ui/Button";
+import { FadeMark } from "@/components/brand/FadeMark";
 import { SHOP_SETTINGS } from "@/lib/constants";
 
 const NAV_LINKS = [
@@ -32,11 +33,14 @@ export function Header() {
 
       <div className="border-b border-navy/10">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6">
-          <Link href="/" className="group flex flex-col leading-none">
-            <span className="font-display text-xl font-bold tracking-tight text-navy">
-              NAJ <span className="text-gold">BARBERS</span>
+          <Link href="/" className="group flex items-center gap-2.5">
+            <FadeMark className="h-8 w-8 shrink-0" />
+            <span className="flex flex-col leading-none">
+              <span className="font-display text-xl font-bold tracking-tight text-navy">
+                NAJ <span className="text-gold">BARBERS</span>
+              </span>
+              <span className="mt-1 h-[3px] w-0 bg-gold transition-all duration-300 group-hover:w-full" />
             </span>
-            <span className="mt-1 h-[3px] w-0 bg-gold transition-all duration-300 group-hover:w-full" />
           </Link>
 
           <nav className="hidden items-center gap-8 md:flex">

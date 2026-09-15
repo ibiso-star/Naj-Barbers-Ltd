@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { AtSign, Mail, MapPin, Phone } from "lucide-react";
+import { FadeMark } from "@/components/brand/FadeMark";
 import { SHOP_SETTINGS } from "@/lib/constants";
 
 const WEEK_ORDER = ["tue", "wed", "thu", "fri", "sat", "sun", "mon"] as const;
@@ -23,9 +24,12 @@ export function Footer() {
     <footer className="mt-auto border-t border-white/10 bg-navy text-white">
       <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:px-6 md:grid-cols-3">
         <div>
-          <p className="font-display text-lg font-bold">
-            NAJ <span className="text-gold">BARBERS</span>
-          </p>
+          <div className="flex items-center gap-2">
+            <FadeMark variant="gold" className="h-7 w-7 shrink-0" />
+            <p className="font-display text-lg font-bold">
+              NAJ <span className="text-gold">BARBERS</span>
+            </p>
+          </div>
           <p className="mt-3 max-w-xs text-sm text-white/60">
             Specialist barbering for Afro and European hair, established{" "}
             {SHOP_SETTINGS.establishedYear} in Swansea. Book your next
