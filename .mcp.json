@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "concord": {
+      "command": "npx",
+      "args": ["-y", "--package=@concord-ai/concord-mcp", "concord-mcp"],
+      "env": {
+        "CONCORD_TELEMETRY_DISABLED": "1"
+      }
+    }
+  }
+}
