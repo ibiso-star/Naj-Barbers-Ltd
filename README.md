@@ -40,12 +40,6 @@ Stripe webhook at `/api/stripe/webhook` listening for `checkout.session.complete
 Without these, full-payment bookings still complete — they just skip straight
 to "confirmed" (pay-in-shop equivalent) instead of a real charge.
 
-## Other apps in this repository
-
-- [`apps/pm-dashboard`](./apps/pm-dashboard) — **Keel**, a separate Linear-style
-  project-management SaaS (Next.js + Supabase). It has its own package, PRD
-  family and CI job and is unrelated to the booking site. See its README.
-
 ## Project structure
 
 - `src/app` — routes (customer site, `/book` wizard, `/account`, `/admin`)

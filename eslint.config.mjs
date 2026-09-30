@@ -12,8 +12,6 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
-    // Self-contained apps with their own lint config (see apps/*/eslint.config.mjs).
-    "apps/**",
   ]),
 ]);
 
