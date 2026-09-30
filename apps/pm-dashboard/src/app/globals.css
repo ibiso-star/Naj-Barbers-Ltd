@@ -1,0 +1,108 @@
+@import "tailwindcss";
+
+/*
+ * Keel design tokens (PRD.md §3). Dark-first by decision: there is no light
+ * theme in v1. Contrast ratios were measured against --color-canvas and are
+ * recorded in PRD.md §3.
+ */
+@theme {
+  --font-sans: var(--font-plex-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, "SFMono-Regular", monospace;
+
+  --color-canvas: #09090b;
+  --color-surface: #111113;
+  --color-raised: #18181b;
+  --color-hover: #1f1f23;
+  --color-line: #27272a;
+  --color-line-strong: #3f3f46;
+
+  --color-ink: #fafafa;
+  --color-ink-soft: #a1a1aa;
+  --color-ink-muted: #8e8e97;
+
+  --color-accent: #3987e5;
+  --color-accent-strong: #1c5cab;
+  --color-accent-ink: #6da7ec;
+
+  /* Status palette — always paired with an icon or label. */
+  --color-good: #0ca30c;
+  --color-warning: #fab219;
+  --color-serious: #ec835a;
+  --color-critical: #d03b3b;
+
+  /* Categorical chart series (dataviz reference palette, dark steps). */
+  --color-series-1: #3987e5;
+  --color-series-2: #d95926;
+  --color-series-3: #199e70;
+  --color-series-4: #c98500;
+
+  /* Sequential blue ramp for the workload heatmap (magnitude). */
+  --color-seq-0: #18181b;
+  --color-seq-1: #104281;
+  --color-seq-2: #1c5cab;
+  --color-seq-3: #2a78d6;
+  --color-seq-4: #5598e7;
+  --color-seq-5: #9ec5f4;
+
+  --shadow-overlay: 0 16px 48px -12px rgb(0 0 0 / 0.7), 0 0 0 1px rgb(255 255 255 / 0.04);
+
+  --animate-toast-in: toast-in 160ms ease-out;
+}
+
+@keyframes toast-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes overlay-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes modal-in {
+  from { opacity: 0; transform: translateY(8px) scale(0.985); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes drawer-in {
+  from { transform: translateX(24px); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body {
+  background: var(--color-canvas);
+  color: var(--color-ink);
+}
+
+body {
+  font-feature-settings: "ss01", "cv05";
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: rgb(57 135 229 / 0.35);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.toast-in { animation: toast-in 160ms ease-out; }
+
+dialog.modal[open] { animation: modal-in 160ms cubic-bezier(0.2, 0.8, 0.2, 1); }
+dialog.drawer[open] { animation: drawer-in 200ms cubic-bezier(0.2, 0.8, 0.2, 1); }
+dialog::backdrop { background: rgb(0 0 0 / 0.6); }
+dialog[open]::backdrop { animation: overlay-in 160ms ease-out; }
+
+/* Thin, quiet scrollbars for dense columns. */
+.scroll-thin { scrollbar-width: thin; scrollbar-color: var(--color-line-strong) transparent; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after, dialog::backdrop {
+    animation-duration: 1ms !important;
+    transition-duration: 1ms !important;
+  }
+}

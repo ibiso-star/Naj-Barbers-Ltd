@@ -26,3 +26,70 @@ jobs:
 
       - name: Build
         run: npm run build
+
+  # Keel PM dashboard (apps/pm-dashboard) — sequence per its architecture.md
+  # §7.1: lint → typecheck → unit → database → build → end-to-end. A failing
+  # step stops the rest.
+  pm-dashboard:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/pm-dashboard
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          # 22 LTS: scripts/generate-seed.mts relies on native type stripping.
+          node-version: "22"
+          cache: "npm"
+          cache-dependency-path: apps/pm-dashboard/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Unit tests
+        run: npm test
+
+      - name: Seed is in sync with src/lib/data/seed.ts
+        # Regenerating changes relative timestamps only if the seed logic changed.
+        run: |
+          node scripts/generate-seed.mts
+          git diff --exit-code -- supabase/seed.sql
+
+      - name: Database tests (migration, RLS, grants, seed)
+        run: bash scripts/test-db.sh
+
+      - name: Build
+        run: npm run build
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: End-to-end journeys and accessibility scans
+        run: npm run test:e2e
+        env:
+          CI: "true"
+
+  pm-dashboard-charter:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/pm-dashboard
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Charter build check
+        run: bash scripts/check-charter.sh

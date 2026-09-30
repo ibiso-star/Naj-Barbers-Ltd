@@ -1,0 +1,129 @@
+# Copy to .github/workflows/ci.yml in a new project.
+# Implements the sequence stated in PRD.md 7.1: lint -> typecheck -> tests ->
+# build -> (deploy preview, if the project has one). A failing earlier step
+# blocks the later ones — jobs are chained with `needs:`, not run in parallel,
+# on purpose.
+# The ordinary charter job checks document integrity on PRs; a version tag
+# also runs the stricter release gate after build.
+#
+# This is written for the reference stack (Next.js frontend, FastAPI backend,
+# pnpm/poetry). Adjust package manager / test commands for your project and
+# state the deviation per PRD.md section 7 if the stack itself differs.
+#
+# pnpm/action-setup is required — ubuntu-latest runners don't ship pnpm, and
+# `pnpm install` fails with "command not found" (exit 127) without it. It
+# reads the pnpm version from the project's root package.json
+# `packageManager` field automatically. Commands run as `pnpm -r <script>`
+# (recursive across the workspace) rather than unfiltered `pnpm <script>`,
+# since the repo-root package.json normally has no such script itself in a
+# monorepo — `-r` runs it in every workspace package that defines it and
+# silently skips the ones that don't. Both confirmed by actually pushing this
+# workflow to GitHub Actions and watching it fail, then pass, on a real test
+# project — not just reasoned about locally.
+
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+    tags: ["v*"]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm -r lint
+
+  typecheck:
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm -r typecheck
+        # If your frontend is a Next.js App Router project using the typed
+        # LayoutProps/PageProps helpers, tsc --noEmit fails cold on a fresh
+        # checkout (Cannot find name 'LayoutProps') until Next has generated
+        # .next/types/ — normally a side effect of next dev/next build,
+        # neither of which has run yet here. Make that project's own
+        # `typecheck` script `next typegen && tsc --noEmit` instead of
+        # `tsc --noEmit` alone (next typegen generates just the route types,
+        # no full build needed) — confirmed on real GitHub Actions.
+
+  test:
+    needs: typecheck
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm -r test
+      - run: pip install poetry && poetry install
+        working-directory: services/api
+      - run: poetry run pytest
+        working-directory: services/api
+
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm -r build
+
+  charter-check:
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: chmod +x scripts/check-charter.sh
+      - run: ./scripts/check-charter.sh
+        # No argument needed — defaults to the repo root and checks PRD.md
+        # and the complete generated family once the PRD is split. Open
+        # implementation controls may remain during an ordinary PR.
+
+  release-charter-check:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: [build, charter-check]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: ./scripts/check-charter.sh --release
+
+  # deploy-preview:
+  #   needs: build
+  #   runs-on: ubuntu-latest
+  #   if: github.event_name == 'pull_request'
+  #   steps:
+  #     - Add this project's deploy-preview step here once one exists.

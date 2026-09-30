@@ -1,0 +1,20 @@
+# Copy to .github/workflows/governance-review.yml after project setup.
+# Scheduled runs use the repository's default branch. This checks expiring
+# exception/evidence records without requiring a new PR. It is a document
+# integrity review, not a release sign-off.
+name: Governance review
+
+on:
+  schedule:
+    - cron: "17 6 * * 1"
+  workflow_dispatch:
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: ./scripts/check-charter.sh

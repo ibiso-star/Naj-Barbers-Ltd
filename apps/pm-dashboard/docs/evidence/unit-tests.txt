@@ -1,0 +1,34 @@
+# npx vitest run — 2026-09-30T12:29:23Z
+ RUN  v5.0.3 /home/user/Naj-Barbers-Ltd/apps/pm-dashboard
+ ✓ src/lib/tasks/tasks.test.ts > filterTasks > returns everything with no filters 3ms
+ ✓ src/lib/tasks/tasks.test.ts > filterTasks > fuzzy-matches titles despite typos 5ms
+ ✓ src/lib/tasks/tasks.test.ts > filterTasks > matches identifiers like MOB-3 1ms
+ ✓ src/lib/tasks/tasks.test.ts > filterTasks > combines multi-select priority and assignee filters (OR within, AND across) 1ms
+ ✓ src/lib/tasks/tasks.test.ts > filterTasks > builds identifiers from the project key 1ms
+ ✓ src/lib/tasks/tasks.test.ts > positionBetween > places between, before, after, and into empty columns 1ms
+ ✓ src/lib/tasks/tasks.test.ts > positionBetween > breaks position ties by task number so order stays stable 0ms
+ ✓ src/features/workspace/reducer.test.ts > workspaceReducer > applies the same realtime upsert idempotently 2ms
+ ✓ src/features/workspace/reducer.test.ts > workspaceReducer > ignores rows that belong to another workspace 0ms
+ ✓ src/features/workspace/reducer.test.ts > workspaceReducer > removes a deleted task together with its subtasks 0ms
+ ✓ src/lib/data/data.test.ts > seed > has unique ids and valid references 8ms
+ ✓ src/lib/data/data.test.ts > seed > spreads completions across the last six months so the charts have history 3ms
+ ✓ src/lib/data/data.test.ts > seed > is deterministic 13ms
+ ✓ src/lib/data/data.test.ts > schemas (SEC-004 allow-list) > rejects server-owned fields on create and update 4ms
+ ✓ src/lib/data/data.test.ts > schemas (SEC-004 allow-list) > trims titles and rejects blank ones 1ms
+ ✓ src/lib/metrics.test.ts > completionByMonth > measures completion against work due each month, with an on-time split 13ms
+ ✓ src/lib/metrics.test.ts > velocityByWeek > counts completions per Monday-start week with a trailing 4-week mean 1ms
+ ✓ src/lib/metrics.test.ts > overdue and KPIs > treats only open tasks due before today as overdue, oldest first 6ms
+ ✓ src/lib/metrics.test.ts > overdue and KPIs > sums the budget of active projects only and compares 30-day windows 1ms
+ ✓ src/lib/metrics.test.ts > workloadHeatmap > buckets open, non-backlog work per member by due week 1ms
+ ✓ src/lib/data/data.test.ts > DemoRepository mirrors the RLS rules > lists only the user's workspaces and hides others (J2) 725ms
+ ✓ src/lib/data/data.test.ts > DemoRepository mirrors the RLS rules > scopes a snapshot strictly to one workspace 363ms
+ ✓ src/lib/data/data.test.ts > DemoRepository mirrors the RLS rules > creates a task with server-owned number, creator and activity (J1) 490ms
+ ✓ src/lib/data/data.test.ts > DemoRepository mirrors the RLS rules > stamps completion on done, clears it on reopen, and logs each change 607ms
+ ✓ src/lib/data/data.test.ts > DemoRepository mirrors the RLS rules > refuses assignees and projects from outside the workspace 3ms
+ ✓ src/lib/data/data.test.ts > DemoRepository mirrors the RLS rules > refuses writes to a workspace the user is not in 1ms
+ ✓ src/lib/data/data.test.ts > DemoRepository mirrors the RLS rules > lets admins invite and change roles but not members (J4) 123ms
+ ✓ src/lib/data/data.test.ts > DemoRepository mirrors the RLS rules > keeps at least one admin 122ms
+ Test Files  4 passed (4)
+      Tests  28 passed (28)
+   Start at  12:29:24
+   Duration  2.97s (tests 60%, import 26%, transform 14%)

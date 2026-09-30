@@ -1,0 +1,25 @@
+# npx playwright test — 2026-09-30T12:31:29Z, Chromium 141, demo-mode production build
+
+Running 19 tests using 2 workers
+
+  ✓   1 [chromium] › e2e/journeys.spec.ts:25:1 › F2 overview shows KPIs, charts with tooltips, heatmap and overdue items (1.6s)
+  ✓   2 [chromium] › e2e/a11y.spec.ts:18:3 › no WCAG 2.2 AA violations on /w/atlas/overview (3.2s)
+  ✓   3 [chromium] › e2e/journeys.spec.ts:44:1 › J1 add a task, drag it across columns, and it persists (3.3s)
+  ✓   4 [chromium] › e2e/a11y.spec.ts:18:3 › no WCAG 2.2 AA violations on /w/atlas/projects (2.8s)
+  ✓   5 [chromium] › e2e/journeys.spec.ts:66:1 › J1 validation: an empty title is rejected with a message (1.5s)
+  ✓   7 [chromium] › e2e/journeys.spec.ts:74:1 › F4 realtime: a move in one tab appears in another without reload (2.8s)
+  ✓   6 [chromium] › e2e/a11y.spec.ts:18:3 › no WCAG 2.2 AA violations on /w/atlas/tasks (4.4s)
+  ✓   8 [chromium] › e2e/journeys.spec.ts:86:1 › F7 drawer edits status, assignee and subtasks, and logs activity (2.0s)
+  ✓  10 [chromium] › e2e/journeys.spec.ts:107:1 › F6 fuzzy search and priority filter narrow the board (1.6s)
+  ✓   9 [chromium] › e2e/a11y.spec.ts:18:3 › no WCAG 2.2 AA violations on /w/atlas/tasks?view=list (3.9s)
+  ✓  11 [chromium] › e2e/journeys.spec.ts:126:1 › J2 switch workspace re-scopes data; a foreign workspace is denied (1.9s)
+  ✓  12 [chromium] › e2e/a11y.spec.ts:18:3 › no WCAG 2.2 AA violations on /w/atlas/team (2.6s)
+  ✓  13 [chromium] › e2e/journeys.spec.ts:138:1 › J4 members cannot invite; admins can (2.7s)
+  ✓  14 [chromium] › e2e/a11y.spec.ts:18:3 › no WCAG 2.2 AA violations on /w/atlas/settings (2.1s)
+  ✓  15 [chromium] › e2e/journeys.spec.ts:152:1 › F3 new project from the modal appears in the list (2.0s)
+  ✓  16 [chromium] › e2e/a11y.spec.ts:18:3 › no WCAG 2.2 AA violations on /w/harbor/overview (1.9s)
+  ✓  17 [chromium] › e2e/journeys.spec.ts:164:1 › A11Y keyboard: open a card with Enter and move it across columns with Space + arrows (2.1s)
+  ✓  19 [chromium] › e2e/journeys.spec.ts:185:1 › A11Y keyboard: list rows open the drawer with Enter (1.6s)
+  ✓  18 [chromium] › e2e/a11y.spec.ts:28:1 › no violations with the task drawer and new-task modal open (3.9s)
+
+  19 passed (27.4s)
