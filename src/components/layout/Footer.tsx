@@ -98,9 +98,21 @@ export function Footer() {
           </Link>
         </div>
       </div>
-      <div className="border-t border-white/10 px-4 py-4 text-center text-xs text-white/40 sm:px-6">
-        © {new Date().getFullYear()} Naj Barbers Ltd · Company No.{" "}
-        {SHOP_SETTINGS.companyNumber}. All rights reserved.
+      <div className="border-t border-white/10 px-4 py-4 sm:px-6">
+        <div className="mx-auto flex max-w-6xl flex-col items-center gap-2 text-center text-xs text-white/40 sm:flex-row sm:justify-between sm:text-left">
+          <span>
+            © {new Date().getFullYear()} Naj Barbers Ltd · Company No.{" "}
+            {SHOP_SETTINGS.companyNumber}. All rights reserved.
+          </span>
+          <span className="flex items-center gap-4">
+            <Link href="/privacy" className="hover:text-white/70">
+              Privacy Policy
+            </Link>
+            <Link href="/terms" className="hover:text-white/70">
+              Terms of Service
+            </Link>
+          </span>
+        </div>
       </div>
     </footer>
   );

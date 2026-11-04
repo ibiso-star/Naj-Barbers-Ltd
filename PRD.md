@@ -149,6 +149,19 @@ keyed off `auth.uid()` and a `profiles.role` column.
       shop photography coming soon" caption, so nothing on the live site is
       presented as a real photo before one exists. Swap in real photos once
       a shoot is scheduled.
+- [x] **Privacy Policy & Terms of Service** (drafted 2026-09-15) — live at
+      `/privacy` and `/terms` (`src/app/privacy`, `src/app/terms`), linked
+      from the footer. Terms fold in the booking, cancellation, no-show,
+      and children's-appointment rules from §4 above rather than
+      duplicating them in a separate document. Cookies are covered inline
+      in the Privacy Policy since the site currently sets none beyond
+      strictly-necessary auth cookies — no separate cookie notice needed
+      yet. **These are a reasonable baseline, not a substitute for review
+      by a solicitor** — recommended before relying on them for a live
+      service that takes real payments and books children's appointments
+      (this is the same caveat the project standards apply to any
+      Termly-style baseline policy). An accessibility statement is still
+      outstanding and needs a real audit first, not just a written claim.
 - [ ] Exact Pantone/hex sign-off
 - [x] **Real shop address, phone, email, Instagram** (confirmed 2026-09-15
       from the project description doc): 13 Mansel Street, Swansea SA1 5SF ·

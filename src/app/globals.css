@@ -82,3 +82,75 @@ h4,
     transform: translateX(-50%);
   }
 }
+
+/* Long-form legal/policy copy (Privacy Policy, Terms). No typography plugin
+   installed, so this scopes plain semantic HTML (h2/h3/p/ul/ol) to the site's
+   type system instead of repeating utility classes on every element. */
+.legal-content h2 {
+  font-family: var(--font-display), var(--font-sans), serif;
+  color: var(--color-navy);
+  font-weight: 700;
+  font-size: 1.25rem;
+  margin-top: 2.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.legal-content h2:first-child {
+  margin-top: 0;
+}
+
+.legal-content h3 {
+  font-family: var(--font-display), var(--font-sans), serif;
+  color: var(--color-navy);
+  font-weight: 600;
+  font-size: 1.05rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.legal-content p,
+.legal-content li {
+  color: rgba(11, 18, 32, 0.75);
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.legal-content p {
+  margin-bottom: 1rem;
+}
+
+.legal-content ul,
+.legal-content ol {
+  margin: 0 0 1rem;
+  padding-left: 1.25rem;
+}
+
+.legal-content ul {
+  list-style: disc;
+}
+
+.legal-content ol {
+  list-style: decimal;
+}
+
+.legal-content li {
+  margin-bottom: 0.4rem;
+}
+
+.legal-content li > ul,
+.legal-content li > ol {
+  margin-top: 0.4rem;
+  margin-bottom: 0;
+}
+
+.legal-content a {
+  color: var(--color-navy);
+  text-decoration: underline;
+  text-decoration-color: var(--color-gold);
+  text-underline-offset: 2px;
+}
+
+.legal-content strong {
+  color: var(--color-navy);
+  font-weight: 700;
+}
